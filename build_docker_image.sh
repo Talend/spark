@@ -3,6 +3,7 @@
 ARTIFACT_NAME=spark-*-bin-talend-spark.tgz
 TEMP_FOLDER=spark
 DOCKER_IMAGE_NAME=talend/spark
+# Bump version tag for new changes
 DOCKER_IMAGE_TAG=1.6.2-talend-5
 
 ## build spark targz
