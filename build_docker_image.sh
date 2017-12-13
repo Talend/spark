@@ -1,10 +1,21 @@
 #!/bin/bash
 
+if [ $# -eq 0 ]
+then
+	echo "Usage $0 1.6.2-talend-x"
+	exit 1
+fi
+
+if [ -z "$1" ]
+then
+	echo "$1 is not a valid docker image tag"
+	exit 1
+fi
+
 ARTIFACT_NAME=spark-*-bin-talend-spark.tgz
 TEMP_FOLDER=spark
 DOCKER_IMAGE_NAME=talend/spark
-# Bump version tag for new changes
-DOCKER_IMAGE_TAG=1.6.2-talend-5
+DOCKER_IMAGE_TAG=$1
 
 ## build spark targz
 ./make-distribution.sh --name talend-spark --tgz -Pyarn -Phadoop-2.7 -Dscala-2.11 -DskipTests
