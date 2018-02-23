@@ -2,7 +2,7 @@
 
 if [ $# -eq 0 ]
 then
-	echo "Usage $0 1.6.2-talend-x"
+	echo "Usage $0 2.2.1-talend-x"
 	exit 1
 fi
 
@@ -18,7 +18,7 @@ DOCKER_IMAGE_NAME=talend/spark
 DOCKER_IMAGE_TAG=$1
 
 ## build spark targz
-./make-distribution.sh --name talend-spark --tgz -Pyarn -Phadoop-2.7 -Dscala-2.11 -DskipTests
+./dev/make-distribution.sh --name talend-spark --tgz -Pyarn -Phadoop-2.7 -Dscala-2.11 -DskipTests
 
 ## remove example from targz
 mkdir -p $TEMP_FOLDER
