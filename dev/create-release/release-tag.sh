@@ -18,8 +18,9 @@
 #
 
 function exit_with_usage {
+  local NAME=$(basename $0)
   cat << EOF
-usage: tag-release.sh
+usage: $NAME
 Tags a Spark release on a particular branch.
 
 Inputs are specified with the following environment variables:
@@ -48,7 +49,7 @@ for env in ASF_USERNAME ASF_PASSWORD RELEASE_VERSION RELEASE_TAG NEXT_VERSION GI
   fi
 done
 
-ASF_SPARK_REPO="git-wip-us.apache.org/repos/asf/spark.git"
+ASF_SPARK_REPO="gitbox.apache.org/repos/asf/spark.git"
 MVN="build/mvn --force"
 
 rm -rf spark

@@ -325,8 +325,14 @@ private[spark] class Executor(
           throw new TaskKilledException(killReason.get)
         }
 
-        logDebug("Task " + taskId + "'s epoch is " + task.epoch)
-        env.mapOutputTracker.updateEpoch(task.epoch)
+        // The purpose of updating the epoch here is to invalidate executor map output status cache
+        // in case FetchFailures have occurred. In local mode `env.mapOutputTracker` will be
+        // MapOutputTrackerMaster and its cache invalidation is not based on epoch numbers so
+        // we don't need to make any special calls here.
+        if (!isLocal) {
+          logDebug("Task " + taskId + "'s epoch is " + task.epoch)
+          env.mapOutputTracker.asInstanceOf[MapOutputTrackerWorker].updateEpoch(task.epoch)
+        }
 
         // Run the actual task and measure its runtime.
         taskStart = System.currentTimeMillis()
@@ -432,6 +438,19 @@ private[spark] class Executor(
         execBackend.statusUpdate(taskId, TaskState.FINISHED, serializedResult)
 
       } catch {
+        case t: TaskKilledException =>
+          logInfo(s"Executor killed $taskName (TID $taskId), reason: ${t.reason}")
+          setTaskFinishedAndClearInterruptStatus()
+          execBackend.statusUpdate(taskId, TaskState.KILLED, ser.serialize(TaskKilled(t.reason)))
+
+        case _: InterruptedException | NonFatal(_) if
+            task != null && task.reasonIfKilled.isDefined =>
+          val killReason = task.reasonIfKilled.getOrElse("unknown reason")
+          logInfo(s"Executor interrupted and killed $taskName (TID $taskId), reason: $killReason")
+          setTaskFinishedAndClearInterruptStatus()
+          execBackend.statusUpdate(
+            taskId, TaskState.KILLED, ser.serialize(TaskKilled(killReason)))
+
         case t: Throwable if hasFetchFailure && !Utils.isFatalError(t) =>
           val reason = task.context.fetchFailed.get.toTaskFailedReason
           if (!t.isInstanceOf[FetchFailedException]) {
@@ -445,19 +464,6 @@ private[spark] class Executor(
           }
           setTaskFinishedAndClearInterruptStatus()
           execBackend.statusUpdate(taskId, TaskState.FAILED, ser.serialize(reason))
-
-        case t: TaskKilledException =>
-          logInfo(s"Executor killed $taskName (TID $taskId), reason: ${t.reason}")
-          setTaskFinishedAndClearInterruptStatus()
-          execBackend.statusUpdate(taskId, TaskState.KILLED, ser.serialize(TaskKilled(t.reason)))
-
-        case _: InterruptedException | NonFatal(_) if
-            task != null && task.reasonIfKilled.isDefined =>
-          val killReason = task.reasonIfKilled.getOrElse("unknown reason")
-          logInfo(s"Executor interrupted and killed $taskName (TID $taskId), reason: $killReason")
-          setTaskFinishedAndClearInterruptStatus()
-          execBackend.statusUpdate(
-            taskId, TaskState.KILLED, ser.serialize(TaskKilled(killReason)))
 
         case CausedBy(cDE: CommitDeniedException) =>
           val reason = cDE.toTaskFailedReason

@@ -39,9 +39,11 @@ if sys.version > '3':
 else:
     from itertools import imap as map, ifilter as filter
 
+from pyspark.java_gateway import local_connect_and_auth
 from pyspark.serializers import NoOpSerializer, CartesianDeserializer, \
     BatchedSerializer, CloudPickleSerializer, PairDeserializer, \
-    PickleSerializer, pack_long, AutoBatchedSerializer
+    PickleSerializer, pack_long, AutoBatchedSerializer, write_with_length, \
+    UTF8Deserializer
 from pyspark.join import python_join, python_left_outer_join, \
     python_right_outer_join, python_full_outer_join, python_cogroup
 from pyspark.statcounter import StatCounter
@@ -119,28 +121,13 @@ def _parse_memory(s):
     return int(float(s[:-1]) * units[s[-1].lower()])
 
 
-def _load_from_socket(port, serializer):
-    sock = None
-    # Support for both IPv4 and IPv6.
-    # On most of IPv6-ready systems, IPv6 will take precedence.
-    for res in socket.getaddrinfo("localhost", port, socket.AF_UNSPEC, socket.SOCK_STREAM):
-        af, socktype, proto, canonname, sa = res
-        sock = socket.socket(af, socktype, proto)
-        try:
-            sock.settimeout(15)
-            sock.connect(sa)
-        except socket.error:
-            sock.close()
-            sock = None
-            continue
-        break
-    if not sock:
-        raise Exception("could not open socket")
+def _load_from_socket(sock_info, serializer):
+    (sockfile, sock) = local_connect_and_auth(*sock_info)
     # The RDD materialization time is unpredicable, if we set a timeout for socket reading
     # operation, it will very possibly fail. See SPARK-18281.
     sock.settimeout(None)
     # The socket will be automatically closed when garbage-collected.
-    return serializer.load_stream(sock.makefile("rb", 65536))
+    return serializer.load_stream(sockfile)
 
 
 def ignore_unicode_prefix(f):
@@ -806,8 +793,8 @@ class RDD(object):
             to be small, as all the data is loaded into the driver's memory.
         """
         with SCCallSiteSync(self.context) as css:
-            port = self.ctx._jvm.PythonRDD.collectAndServe(self._jrdd.rdd())
-        return list(_load_from_socket(port, self._jrdd_deserializer))
+            sock_info = self.ctx._jvm.PythonRDD.collectAndServe(self._jrdd.rdd())
+        return list(_load_from_socket(sock_info, self._jrdd_deserializer))
 
     def reduce(self, f):
         """
@@ -2364,8 +2351,8 @@ class RDD(object):
         [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
         """
         with SCCallSiteSync(self.context) as css:
-            port = self.ctx._jvm.PythonRDD.toLocalIteratorAndServe(self._jrdd.rdd())
-        return _load_from_socket(port, self._jrdd_deserializer)
+            sock_info = self.ctx._jvm.PythonRDD.toLocalIteratorAndServe(self._jrdd.rdd())
+        return _load_from_socket(sock_info, self._jrdd_deserializer)
 
 
 def _prepare_for_python_RDD(sc, command):

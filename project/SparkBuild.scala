@@ -713,7 +713,8 @@ object Unidoc {
 
     scalacOptions in (ScalaUnidoc, unidoc) ++= Seq(
       "-groups", // Group similar methods together based on the @group annotation.
-      "-skip-packages", "org.apache.hadoop"
+      "-skip-packages", "org.apache.hadoop",
+      "-sourcepath", (baseDirectory in ThisBuild).value.getAbsolutePath
     ) ++ (
       // Add links to sources when generating Scaladoc for a non-snapshot release
       if (!isSnapshot.value) {
@@ -790,7 +791,7 @@ object TestSettings {
     javaOptions in Test ++= System.getProperties.asScala.filter(_._1.startsWith("spark"))
       .map { case (k,v) => s"-D$k=$v" }.toSeq,
     javaOptions in Test += "-ea",
-    javaOptions in Test ++= "-Xmx3g -Xss4096k"
+    javaOptions in Test ++= "-Xmx3g -Xss4m"
       .split(" ").toSeq,
     javaOptions += "-Xmx3g",
     // Exclude tags defined in a system property

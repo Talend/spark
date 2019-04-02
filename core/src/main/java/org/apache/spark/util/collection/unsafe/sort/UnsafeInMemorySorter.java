@@ -61,12 +61,13 @@ public final class UnsafeInMemorySorter {
       int uaoSize = UnsafeAlignedOffset.getUaoSize();
       if (prefixComparisonResult == 0) {
         final Object baseObject1 = memoryManager.getPage(r1.recordPointer);
-        // skip length
         final long baseOffset1 = memoryManager.getOffsetInPage(r1.recordPointer) + uaoSize;
+        final int baseLength1 = UnsafeAlignedOffset.getSize(baseObject1, baseOffset1 - uaoSize);
         final Object baseObject2 = memoryManager.getPage(r2.recordPointer);
-        // skip length
         final long baseOffset2 = memoryManager.getOffsetInPage(r2.recordPointer) + uaoSize;
-        return recordComparator.compare(baseObject1, baseOffset1, baseObject2, baseOffset2);
+        final int baseLength2 = UnsafeAlignedOffset.getSize(baseObject2, baseOffset2 - uaoSize);
+        return recordComparator.compare(baseObject1, baseOffset1, baseLength1, baseObject2,
+          baseOffset2, baseLength2);
       } else {
         return prefixComparisonResult;
       }
@@ -173,9 +174,12 @@ public final class UnsafeInMemorySorter {
     if (consumer != null) {
       consumer.freeArray(array);
       // the call to consumer.allocateArray may trigger a spill
-      // which in turn access this instance and eventually re-enter this method and try to free the array again.
-      // by setting the array to null and its length to 0 we effectively make the spill code-path a no-op.
-      // setting the array to null also indicates that it has already been de-allocated which prevents a double de-allocation in free().
+      // which in turn access this instance and eventually re-enter this method
+      // and try to free the array again.
+      // By setting the array to null and its length to 0
+      // we effectively make the spill code-path a no-op.
+      // Setting the array to null also indicates that it has already been
+      // de-allocated which prevents a double de-allocation in free().
       array = null;
       usableCapacity = 0;
       pos = 0;
