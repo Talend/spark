@@ -1,13 +1,5 @@
-FROM openjdk:8u171-jre-alpine
+FROM artifactory.datapwn.com/tlnd-docker-prod/talend/common/tsbi/java8-base:1.8.0-20190910070805
 MAINTAINER amarouni@talend.com
 
-RUN apk update \
-	&& apk add bash \
-	&& apk add curl \
-	&& apk add ca-certificates wget \
-	&& update-ca-certificates \
-	&& apk add openssl \
-	&& apk add libc6-compat \
-	&& apk add krb5
-
+USER talend
 ADD spark /opt/spark
