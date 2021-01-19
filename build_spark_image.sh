@@ -9,7 +9,7 @@ DOCKER_IMAGE_TAG=3.0.1-tlnd
 ## remove example from targz
 mkdir -p $TEMP_FOLDER
 tar -xzvf $ARTIFACT_NAME -C $TEMP_FOLDER --strip-components 1
-rm -rf spark/lib/spark-examples*
+rm -rf $TEMP_FOLDER/lib/spark-examples* $TEMP_FOLDER/data $TEMP_FOLDER/examples $TEMP_FOLDER/python
 
 # build docker image
 docker build -t $DOCKER_IMAGE_NAME:$DOCKER_IMAGE_TAG .
