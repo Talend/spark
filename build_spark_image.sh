@@ -1,3 +1,5 @@
+set -e
+
 ARTIFACT_NAME=spark-3.0.1-bin-talend-spark.tgz
 TEMP_FOLDER=spark
 DOCKER_IMAGE_NAME=talend/spark
