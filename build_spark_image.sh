@@ -3,7 +3,7 @@ set -e
 ARTIFACT_NAME=spark-3.0.1-bin-talend-spark.tgz
 TEMP_FOLDER=spark
 DOCKER_IMAGE_NAME=talend/spark
-DOCKER_IMAGE_TAG=3.0.1-tsbi-2.7.2-tlnd
+DOCKER_IMAGE_TAG=3.0.1-tsbi-2.8.1-tlnd
 
 ## build spark targz
 ./dev/make-distribution.sh --name talend-spark --tgz -Pyarn -Phive-provided -Porc-provided -Pparquet-provided -Dscala-2.12 -DskipTests
