@@ -24,12 +24,40 @@ ENV FULL_REFRESH_DATE 20221118
 ENV DEBIAN_FRONTEND noninteractive
 ENV DEBCONF_NONINTERACTIVE_SEEN true
 
-ARG APT_INSTALL="apt-get install --no-install-recommends -y"
-
-RUN apt-get clean
-RUN apt-get update
-RUN $APT_INSTALL software-properties-common git libxml2-dev pkg-config curl wget openjdk-8-jdk libpython3-dev python3-pip python3-setuptools python3.8 python3.9
-RUN update-alternatives --set java /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java
+RUN apt-get update && apt-get install -y \
+    software-properties-common \
+    git \
+    pkg-config  \
+    curl  \
+    wget  \
+    openjdk-17-jdk-headless  \
+    gfortran  \
+    libopenblas-dev  \
+    liblapack-dev \
+    build-essential \
+    gnupg \
+    ca-certificates  \
+    pandoc \
+    libpython3-dev  \
+    python3-pip  \
+    python3-setuptools  \
+    python3.8  \
+    python3.9 \
+    r-base  \
+    libcurl4-openssl-dev  \
+    qpdf  \
+    zlib1g-dev \
+    libssl-dev  \
+    libpng-dev \
+    libharfbuzz-dev \
+    libfribidi-dev \
+    libtiff5-dev \
+    libgit2-dev \
+    libxml2-dev  \
+    libjpeg-dev \
+    libfontconfig1-dev \
+    libfreetype6-dev \
+    && rm -rf /var/lib/apt/lists/*
 
 RUN curl -sS https://bootstrap.pypa.io/get-pip.py | python3.9
 
