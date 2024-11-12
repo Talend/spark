@@ -25,7 +25,7 @@ on:
       java:
         required: false
         type: string
-        default: 8
+        default: 17
       branch:
         description: Branch to run the build against
         required: false
@@ -63,7 +63,7 @@ jobs:
         }}
     steps:
     - name: Checkout Spark repository
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
       with:
         fetch-depth: 0
         repository: apache/spark
@@ -218,7 +218,7 @@ jobs:
       SKIP_PACKAGING: true
     steps:
     - name: Checkout Spark repository
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
       # In order to fetch changed files
       with:
         fetch-depth: 0
@@ -233,7 +233,7 @@ jobs:
         git -c user.name='Apache Spark Test Account' -c user.email='sparktestacc@gmail.com' commit -m "Merged commit" --allow-empty
     # Cache local repositories. Note that GitHub Actions cache has a 2G limit.
     - name: Cache Scala, SBT and Maven
-      uses: actions/cache@v3
+      uses: actions/cache@v4
       with:
         path: |
           build/apache-maven-*
@@ -244,16 +244,16 @@ jobs:
         restore-keys: |
           build-
     - name: Cache Coursier local repository
-      uses: actions/cache@v3
+      uses: actions/cache@v4
       with:
         path: ~/.cache/coursier
         key: ${{ matrix.java }}-${{ matrix.hadoop }}-coursier-${{ hashFiles('**/pom.xml', '**/plugins.sbt') }}
         restore-keys: |
           ${{ matrix.java }}-${{ matrix.hadoop }}-coursier-
     - name: Install Java ${{ matrix.java }}
-      uses: actions/setup-java@v3
+      uses: actions/setup-java@v4
       with:
-        distribution: temurin
+        distribution: zulu
         java-version: ${{ matrix.java }}
     - name: Install Python 3.8
       uses: actions/setup-python@v4
@@ -313,7 +313,7 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
       - name: Checkout Spark repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         # In order to fetch changed files
         with:
           fetch-depth: 0
@@ -391,7 +391,7 @@ jobs:
       METASPACE_SIZE: 1g
     steps:
     - name: Checkout Spark repository
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
       # In order to fetch changed files
       with:
         fetch-depth: 0
@@ -409,7 +409,7 @@ jobs:
         git -c user.name='Apache Spark Test Account' -c user.email='sparktestacc@gmail.com' commit -m "Merged commit" --allow-empty
     # Cache local repositories. Note that GitHub Actions cache has a 2G limit.
     - name: Cache Scala, SBT and Maven
-      uses: actions/cache@v3
+      uses: actions/cache@v4
       with:
         path: |
           build/apache-maven-*
@@ -420,7 +420,7 @@ jobs:
         restore-keys: |
           build-
     - name: Cache Coursier local repository
-      uses: actions/cache@v3
+      uses: actions/cache@v4
       with:
         path: ~/.cache/coursier
         key: pyspark-coursier-${{ hashFiles('**/pom.xml', '**/plugins.sbt') }}
@@ -429,9 +429,9 @@ jobs:
     - name: Free up disk space
       run: ./dev/free_disk_space_container
     - name: Install Java ${{ matrix.java }}
-      uses: actions/setup-java@v3
+      uses: actions/setup-java@v4
       with:
-        distribution: temurin
+        distribution: zulu
         java-version: ${{ matrix.java }}
     - name: List Python packages (Python 3.9, PyPy3)
       run: |
@@ -490,7 +490,7 @@ jobs:
       SKIP_PACKAGING: true
     steps:
     - name: Checkout Spark repository
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
       # In order to fetch changed files
       with:
         fetch-depth: 0
@@ -508,7 +508,7 @@ jobs:
         git -c user.name='Apache Spark Test Account' -c user.email='sparktestacc@gmail.com' commit -m "Merged commit" --allow-empty
     # Cache local repositories. Note that GitHub Actions cache has a 2G limit.
     - name: Cache Scala, SBT and Maven
-      uses: actions/cache@v3
+      uses: actions/cache@v4
       with:
         path: |
           build/apache-maven-*
@@ -519,7 +519,7 @@ jobs:
         restore-keys: |
           build-
     - name: Cache Coursier local repository
-      uses: actions/cache@v3
+      uses: actions/cache@v4
       with:
         path: ~/.cache/coursier
         key: sparkr-coursier-${{ hashFiles('**/pom.xml', '**/plugins.sbt') }}
@@ -528,9 +528,9 @@ jobs:
     - name: Free up disk space
       run: ./dev/free_disk_space_container
     - name: Install Java ${{ inputs.java }}
-      uses: actions/setup-java@v3
+      uses: actions/setup-java@v4
       with:
-        distribution: temurin
+        distribution: zulu
         java-version: ${{ inputs.java }}
     - name: Run tests
       env: ${{ fromJSON(inputs.envs) }}
@@ -555,7 +555,7 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
     - name: Checkout Spark repository
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
       with:
         fetch-depth: 0
         repository: apache/spark
@@ -594,7 +594,7 @@ jobs:
       image: ${{ needs.precondition.outputs.image_url }}
     steps:
     - name: Checkout Spark repository
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
       with:
         fetch-depth: 0
         repository: apache/spark
@@ -611,7 +611,7 @@ jobs:
         git -c user.name='Apache Spark Test Account' -c user.email='sparktestacc@gmail.com' commit -m "Merged commit" --allow-empty
     # Cache local repositories. Note that GitHub Actions cache has a 2G limit.
     - name: Cache Scala, SBT and Maven
-      uses: actions/cache@v3
+      uses: actions/cache@v4
       with:
         path: |
           build/apache-maven-*
@@ -622,14 +622,14 @@ jobs:
         restore-keys: |
           build-
     - name: Cache Coursier local repository
-      uses: actions/cache@v3
+      uses: actions/cache@v4
       with:
         path: ~/.cache/coursier
         key: docs-coursier-${{ hashFiles('**/pom.xml', '**/plugins.sbt') }}
         restore-keys: |
           docs-coursier-
     - name: Cache Maven local repository
-      uses: actions/cache@v3
+      uses: actions/cache@v4
       with:
         path: ~/.m2/repository
         key: docs-maven-${{ hashFiles('**/pom.xml') }}
@@ -637,11 +637,11 @@ jobs:
           docs-maven-
     - name: Free up disk space
       run: ./dev/free_disk_space_container
-    - name: Install Java 8
-      uses: actions/setup-java@v3
+    - name: Install Java ${{ inputs.java }}
+      uses: actions/setup-java@v4
       with:
-        distribution: temurin
-        java-version: 8
+        distribution: zulu
+        java-version: ${{ inputs.java }}
     - name: License test
       run: ./dev/check-license
     - name: Dependencies test
@@ -732,12 +732,12 @@ jobs:
       fail-fast: false
       matrix:
         java:
-          - 11
           - 17
+          - 21
     runs-on: ubuntu-22.04
     steps:
     - name: Checkout Spark repository
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
       with:
         fetch-depth: 0
         repository: apache/spark
@@ -749,7 +749,7 @@ jobs:
         git -c user.name='Apache Spark Test Account' -c user.email='sparktestacc@gmail.com' merge --no-commit --progress --squash FETCH_HEAD
         git -c user.name='Apache Spark Test Account' -c user.email='sparktestacc@gmail.com' commit -m "Merged commit" --allow-empty
     - name: Cache Scala, SBT and Maven
-      uses: actions/cache@v3
+      uses: actions/cache@v4
       with:
         path: |
           build/apache-maven-*
@@ -760,16 +760,16 @@ jobs:
         restore-keys: |
           build-
     - name: Cache Maven local repository
-      uses: actions/cache@v3
+      uses: actions/cache@v4
       with:
         path: ~/.m2/repository
         key: java${{ matrix.java }}-maven-${{ hashFiles('**/pom.xml') }}
         restore-keys: |
           java${{ matrix.java }}-maven-
     - name: Install Java ${{ matrix.java }}
-      uses: actions/setup-java@v3
+      uses: actions/setup-java@v4
       with:
-        distribution: temurin
+        distribution: zulu
         java-version: ${{ matrix.java }}
     - name: Build with Maven
       run: |
@@ -787,7 +787,7 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
     - name: Checkout Spark repository
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
       with:
         fetch-depth: 0
         repository: apache/spark
@@ -799,7 +799,7 @@ jobs:
         git -c user.name='Apache Spark Test Account' -c user.email='sparktestacc@gmail.com' merge --no-commit --progress --squash FETCH_HEAD
         git -c user.name='Apache Spark Test Account' -c user.email='sparktestacc@gmail.com' commit -m "Merged commit" --allow-empty
     - name: Cache Scala, SBT and Maven
-      uses: actions/cache@v3
+      uses: actions/cache@v4
       with:
         path: |
           build/apache-maven-*
@@ -810,17 +810,17 @@ jobs:
         restore-keys: |
           build-
     - name: Cache Coursier local repository
-      uses: actions/cache@v3
+      uses: actions/cache@v4
       with:
         path: ~/.cache/coursier
         key: scala-213-coursier-${{ hashFiles('**/pom.xml', '**/plugins.sbt') }}
         restore-keys: |
           scala-213-coursier-
-    - name: Install Java 8
-      uses: actions/setup-java@v3
+    - name: Install Java ${{ inputs.java }}
+      uses: actions/setup-java@v4
       with:
-        distribution: temurin
-        java-version: 8
+        distribution: zulu
+        java-version: ${{ inputs.java }}
     - name: Build with SBT
       run: |
         ./dev/change-scala-version.sh 2.13
@@ -837,7 +837,7 @@ jobs:
       SPARK_LOCAL_IP: localhost
     steps:
     - name: Checkout Spark repository
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
       with:
         fetch-depth: 0
         repository: apache/spark
@@ -849,7 +849,7 @@ jobs:
         git -c user.name='Apache Spark Test Account' -c user.email='sparktestacc@gmail.com' merge --no-commit --progress --squash FETCH_HEAD
         git -c user.name='Apache Spark Test Account' -c user.email='sparktestacc@gmail.com' commit -m "Merged commit" --allow-empty
     - name: Cache Scala, SBT and Maven
-      uses: actions/cache@v3
+      uses: actions/cache@v4
       with:
         path: |
           build/apache-maven-*
@@ -860,26 +860,26 @@ jobs:
         restore-keys: |
           build-
     - name: Cache Coursier local repository
-      uses: actions/cache@v3
+      uses: actions/cache@v4
       with:
         path: ~/.cache/coursier
         key: tpcds-coursier-${{ hashFiles('**/pom.xml', '**/plugins.sbt') }}
         restore-keys: |
           tpcds-coursier-
-    - name: Install Java 8
-      uses: actions/setup-java@v3
+    - name: Install Java ${{ inputs.java }}
+      uses: actions/setup-java@v4
       with:
-        distribution: temurin
-        java-version: 8
+        distribution: zulu
+        java-version: ${{ inputs.java }}
     - name: Cache TPC-DS generated data
       id: cache-tpcds-sf-1
-      uses: actions/cache@v3
+      uses: actions/cache@v4
       with:
         path: ./tpcds-sf-1
         key: tpcds-${{ hashFiles('.github/workflows/build_and_test.yml', 'sql/core/src/test/scala/org/apache/spark/sql/TPCDSSchema.scala') }}
     - name: Checkout tpcds-kit repository
       if: steps.cache-tpcds-sf-1.outputs.cache-hit != 'true'
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
       with:
         repository: databricks/tpcds-kit
         ref: 2a5078a782192ddb6efbcead8de9973d6ab4f069
@@ -941,7 +941,7 @@ jobs:
       SKIP_PACKAGING: true
     steps:
     - name: Checkout Spark repository
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
       with:
         fetch-depth: 0
         repository: apache/spark
@@ -954,7 +954,7 @@ jobs:
         git -c user.name='Apache Spark Test Account' -c user.email='sparktestacc@gmail.com' merge --no-commit --progress --squash FETCH_HEAD
         git -c user.name='Apache Spark Test Account' -c user.email='sparktestacc@gmail.com' commit -m "Merged commit" --allow-empty
     - name: Cache Scala, SBT and Maven
-      uses: actions/cache@v3
+      uses: actions/cache@v4
       with:
         path: |
           build/apache-maven-*
@@ -965,17 +965,17 @@ jobs:
         restore-keys: |
           build-
     - name: Cache Coursier local repository
-      uses: actions/cache@v3
+      uses: actions/cache@v4
       with:
         path: ~/.cache/coursier
         key: docker-integration-coursier-${{ hashFiles('**/pom.xml', '**/plugins.sbt') }}
         restore-keys: |
           docker-integration-coursier-
-    - name: Install Java 8
-      uses: actions/setup-java@v3
+    - name: Install Java ${{ inputs.java }}
+      uses: actions/setup-java@v4
       with:
-        distribution: temurin
-        java-version: 8
+        distribution: zulu
+        java-version: ${{ inputs.java }}
     - name: Run tests
       run: |
         ./dev/run-tests --parallelism 1 --modules docker-integration-tests --included-tags org.apache.spark.tags.DockerTest
@@ -999,7 +999,7 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
       - name: Checkout Spark repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
           repository: apache/spark
@@ -1012,7 +1012,7 @@ jobs:
           git -c user.name='Apache Spark Test Account' -c user.email='sparktestacc@gmail.com' merge --no-commit --progress --squash FETCH_HEAD
           git -c user.name='Apache Spark Test Account' -c user.email='sparktestacc@gmail.com' commit -m "Merged commit" --allow-empty
       - name: Cache Scala, SBT and Maven
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: |
             build/apache-maven-*
@@ -1023,16 +1023,16 @@ jobs:
           restore-keys: |
             build-
       - name: Cache Coursier local repository
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: ~/.cache/coursier
           key: k8s-integration-coursier-${{ hashFiles('**/pom.xml', '**/plugins.sbt') }}
           restore-keys: |
             k8s-integration-coursier-
       - name: Install Java ${{ inputs.java }}
-        uses: actions/setup-java@v3
+        uses: actions/setup-java@v4
         with:
-          distribution: temurin
+          distribution: zulu
           java-version: ${{ inputs.java }}
       - name: start minikube
         run: |
