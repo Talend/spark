@@ -341,7 +341,7 @@ private[spark] object TestUtils {
       connection.getHeaderField("Location");
     }
   }
-  
+
   /**
    * Returns the response message from an HTTP(S) URL.
    */
