@@ -2806,7 +2806,7 @@
                     <searchTransitive>true</searchTransitive>
                   </bannedDependencies>
                   <enforceBytecodeVersion>
-                    <maxJdkVersion>${java.version}</maxJdkVersion>
+                    <maxJdkVersion>17</maxJdkVersion>
                     <ignoredScopes>test</ignoredScopes>
                     <ignoredScopes>provided</ignoredScopes>
                     <excludes>
