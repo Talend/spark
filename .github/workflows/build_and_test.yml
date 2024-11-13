@@ -103,7 +103,6 @@ jobs:
               \"sparkr\": \"$sparkr\",
               \"tpcds-1g\": \"$tpcds\",
               \"docker-integration-tests\": \"$docker\",
-              \"scala-213\": \"$build\",
               \"java-11-17\": \"$build\",
               \"lint\" : \"true\",
               \"k8s-integration-tests\" : \"$kubernetes\",
@@ -779,52 +778,6 @@ jobs:
         # It uses Maven's 'install' intentionally, see https://github.com/apache/spark/pull/26414.
         ./build/mvn $MAVEN_CLI_OPTS -DskipTests -Pyarn -Pmesos -Pkubernetes -Pvolcano -Phive -Phive-thriftserver -Phadoop-cloud -Djava.version=${JAVA_VERSION/-ea} install
         rm -rf ~/.m2/repository/org/apache/spark
-
-  scala-213:
-    needs: precondition
-    if: fromJson(needs.precondition.outputs.required).scala-213 == 'true'
-    name: Scala 2.13 build with SBT
-    runs-on: ubuntu-22.04
-    steps:
-    - name: Checkout Spark repository
-      uses: actions/checkout@v4
-      with:
-        fetch-depth: 0
-        repository: apache/spark
-        ref: ${{ inputs.branch }}
-    - name: Sync the current branch with the latest in Apache Spark
-      if: github.repository != 'apache/spark'
-      run: |
-        git fetch https://github.com/$GITHUB_REPOSITORY.git ${GITHUB_REF#refs/heads/}
-        git -c user.name='Apache Spark Test Account' -c user.email='sparktestacc@gmail.com' merge --no-commit --progress --squash FETCH_HEAD
-        git -c user.name='Apache Spark Test Account' -c user.email='sparktestacc@gmail.com' commit -m "Merged commit" --allow-empty
-    - name: Cache Scala, SBT and Maven
-      uses: actions/cache@v4
-      with:
-        path: |
-          build/apache-maven-*
-          build/scala-*
-          build/*.jar
-          ~/.sbt
-        key: build-${{ hashFiles('**/pom.xml', 'project/build.properties', 'build/mvn', 'build/sbt', 'build/sbt-launch-lib.bash', 'build/spark-build-info') }}
-        restore-keys: |
-          build-
-    - name: Cache Coursier local repository
-      uses: actions/cache@v4
-      with:
-        path: ~/.cache/coursier
-        key: scala-213-coursier-${{ hashFiles('**/pom.xml', '**/plugins.sbt') }}
-        restore-keys: |
-          scala-213-coursier-
-    - name: Install Java ${{ inputs.java }}
-      uses: actions/setup-java@v4
-      with:
-        distribution: zulu
-        java-version: ${{ inputs.java }}
-    - name: Build with SBT
-      run: |
-        ./dev/change-scala-version.sh 2.13
-        ./build/sbt -Pyarn -Pmesos -Pkubernetes -Pvolcano -Phive -Phive-thriftserver -Phadoop-cloud -Pkinesis-asl -Pdocker-integration-tests -Pkubernetes-integration-tests -Pspark-ganglia-lgpl -Pscala-2.13 compile Test/compile
 
   # Any TPC-DS related updates on this job need to be applied to tpcds-1g-gen job of benchmark.yml as well
   tpcds-1g:
