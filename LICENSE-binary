@@ -365,7 +365,6 @@ org.datanucleus:datanucleus-rdbms
 org.lz4:lz4-java
 org.xerial.snappy:snappy-java
 stax:stax-api
-xerces:xercesImpl
 org.codehaus.jackson:jackson-jaxrs
 org.codehaus.jackson:jackson-xc
 org.eclipse.jetty:jetty-client
