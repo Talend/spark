@@ -234,7 +234,8 @@ object SparkBuild extends PomBuild {
         // replace -Xfatal-warnings with fine-grained configuration, since 2.13.2
         // verbose warning on deprecation, error on all others
         // see `scalac -Wconf:help` for details
-        "-Wconf:cat=deprecation:wv,any:e",
+        "-Wconf:any:e",
+        "-Wconf:cat=deprecation:wv",
         // 2.13-specific warning hits to be muted (as narrowly as possible) and addressed separately
         "-Wunused:imports",
         "-Wconf:cat=lint-multiarg-infix:wv",
