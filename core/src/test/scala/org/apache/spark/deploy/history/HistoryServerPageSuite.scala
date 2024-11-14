@@ -19,7 +19,6 @@ package org.apache.spark.deploy.history
 
 import java.net.URL
 
-
 import jakarta.servlet.http.HttpServletResponse
 import org.json4s.DefaultFormats
 import org.json4s.JsonAST._

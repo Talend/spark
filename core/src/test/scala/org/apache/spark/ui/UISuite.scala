@@ -24,7 +24,7 @@ import java.util.Locale
 import scala.io.Source
 
 import jakarta.servlet._
-import jakarta.servlet.http.{HttpServletRequest, HttpServletRequestWrapper, HttpServletResponse}
+import jakarta.servlet.http.{HttpServlet, HttpServletRequest, HttpServletResponse}
 import org.eclipse.jetty.servlet.{ServletContextHandler, ServletHolder}
 import org.eclipse.jetty.util.thread.QueuedThreadPool
 import org.mockito.Mockito.{mock, when}
