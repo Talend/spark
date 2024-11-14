@@ -19,8 +19,7 @@ package org.apache.spark.sql.execution.ui
 
 import java.net.URLEncoder
 import java.nio.charset.StandardCharsets.UTF_8
-import javax.servlet.http.HttpServletRequest
-
+import jakarta.servlet.http.HttpServletRequest
 import scala.collection.mutable
 import scala.xml.{Node, NodeSeq}
 

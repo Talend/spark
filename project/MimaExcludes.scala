@@ -69,7 +69,10 @@ object MimaExcludes {
     ProblemFilters.exclude[MissingClassProblem]("org.apache.spark.sql.SaveMode"),
     ProblemFilters.exclude[MissingClassProblem]("org.apache.spark.sql.streaming.GroupState"),
     // [SPARK-46480][CORE][SQL] Fix NPE when table cache task attempt
-    ProblemFilters.exclude[ReversedMissingMethodProblem]("org.apache.spark.TaskContext.isFailed")
+    ProblemFilters.exclude[ReversedMissingMethodProblem]("org.apache.spark.TaskContext.isFailed"),
+    // SPARK-46938: Javax -> Jakarta namespace change.
+    ProblemFilters.exclude[MissingTypesProblem]("org.apache.spark.ui.ProxyRedirectHandler$ResponseWrapper"),
+    ProblemFilters.exclude[IncompatibleMethTypeProblem]("org.apache.spark.ui.ProxyRedirectHandler#ResponseWrapper.this")
   )
 
   // Default exclude rules

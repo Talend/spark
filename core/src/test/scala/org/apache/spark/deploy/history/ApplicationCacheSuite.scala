@@ -18,7 +18,7 @@
 package org.apache.spark.deploy.history
 
 import java.util.{Date, NoSuchElementException}
-import javax.servlet.http.{HttpServletRequest, HttpServletResponse}
+import jakarta.servlet.http.{HttpServletRequest, HttpServletResponse}
 
 import scala.collection.mutable
 

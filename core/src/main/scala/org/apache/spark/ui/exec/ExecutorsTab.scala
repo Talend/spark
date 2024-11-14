@@ -17,8 +17,7 @@
 
 package org.apache.spark.ui.exec
 
-import javax.servlet.http.HttpServletRequest
-
+import jakarta.servlet.http.HttpServletRequest
 import scala.xml.Node
 
 import org.apache.spark.internal.config.UI._

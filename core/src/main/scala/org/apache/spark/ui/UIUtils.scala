@@ -23,8 +23,8 @@ import java.net.URLDecoder
 import java.nio.charset.StandardCharsets.UTF_8
 import java.text.SimpleDateFormat
 import java.util.{Date, Locale, TimeZone}
-import javax.servlet.http.HttpServletRequest
-import javax.ws.rs.core.{MediaType, MultivaluedMap, Response}
+import jakarta.servlet.http.HttpServletRequest
+import jakarta.ws.rs.core.{MediaType, MultivaluedMap, Response}
 
 import scala.collection.JavaConverters._
 import scala.util.control.NonFatal

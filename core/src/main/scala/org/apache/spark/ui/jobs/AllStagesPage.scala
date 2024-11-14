@@ -17,8 +17,7 @@
 
 package org.apache.spark.ui.jobs
 
-import javax.servlet.http.HttpServletRequest
-
+import jakarta.servlet.http.HttpServletRequest
 import scala.xml.{Attribute, Elem, Node, NodeSeq, Null, Text}
 
 import org.apache.spark.scheduler.Schedulable

@@ -21,7 +21,7 @@ import java.io.File
 import java.text.SimpleDateFormat
 import java.util.{Date, Locale}
 import java.util.concurrent.atomic.AtomicLong
-import javax.servlet.http.HttpServletResponse
+import jakarta.servlet.http.HttpServletResponse
 
 import org.apache.spark.{SPARK_VERSION => sparkVersion, SparkConf}
 import org.apache.spark.deploy.Command

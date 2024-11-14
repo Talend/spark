@@ -20,8 +20,7 @@ package org.apache.spark.ui.jobs
 import java.net.URLEncoder
 import java.nio.charset.StandardCharsets.UTF_8
 import java.util.Date
-import javax.servlet.http.HttpServletRequest
-
+import jakarta.servlet.http.HttpServletRequest
 import scala.xml._
 
 import org.apache.spark.status.AppStatusStore

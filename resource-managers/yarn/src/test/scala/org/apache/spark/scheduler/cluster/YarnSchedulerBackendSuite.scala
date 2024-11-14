@@ -18,7 +18,7 @@ package org.apache.spark.scheduler.cluster
 
 import java.net.URL
 import java.util.concurrent.atomic.AtomicReference
-import javax.servlet.http.{HttpServlet, HttpServletRequest, HttpServletResponse}
+import jakarta.servlet.http.{HttpServlet, HttpServletRequest, HttpServletResponse}
 
 import org.mockito.Mockito.when
 import org.scalatestplus.mockito.MockitoSugar

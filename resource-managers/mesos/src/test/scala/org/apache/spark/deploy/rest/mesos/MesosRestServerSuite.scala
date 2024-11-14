@@ -17,7 +17,7 @@
 
 package org.apache.spark.deploy.rest.mesos
 
-import javax.servlet.http.HttpServletResponse
+import jakarta.servlet.http.HttpServletResponse
 
 import org.scalatestplus.mockito.MockitoSugar
 

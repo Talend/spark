@@ -17,8 +17,7 @@
 
 package org.apache.spark.deploy.worker.ui
 
-import javax.servlet.http.HttpServletRequest
-
+import jakarta.servlet.http.HttpServletRequest
 import scala.xml.Node
 
 import org.json4s.JValue

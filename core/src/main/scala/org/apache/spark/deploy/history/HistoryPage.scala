@@ -17,8 +17,7 @@
 
 package org.apache.spark.deploy.history
 
-import javax.servlet.http.HttpServletRequest
-
+import jakarta.servlet.http.HttpServletRequest
 import scala.xml.Node
 
 import org.apache.spark.status.api.v1.ApplicationInfo

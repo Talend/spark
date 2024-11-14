@@ -18,8 +18,7 @@
 package org.apache.spark.sql.streaming.ui
 
 import java.util.{Locale, UUID}
-import javax.servlet.http.HttpServletRequest
-
+import jakarta.servlet.http.HttpServletRequest
 import scala.xml.Node
 
 import org.mockito.Mockito.{mock, when, RETURNS_SMART_NULLS}

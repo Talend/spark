@@ -17,8 +17,7 @@
 
 package org.apache.spark.streaming.ui
 
-import javax.servlet.http.HttpServletRequest
-
+import jakarta.servlet.http.HttpServletRequest
 import scala.xml._
 
 import org.apache.commons.text.StringEscapeUtils

@@ -18,7 +18,7 @@
 package org.apache.spark.deploy.master.ui
 
 import java.util.Date
-import javax.servlet.http.HttpServletResponse.SC_OK
+import jakarta.servlet.http.HttpServletResponse.SC_OK
 
 import scala.io.Source
 

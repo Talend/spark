@@ -20,8 +20,7 @@ package org.apache.spark.sql.streaming.ui
 import java.{util => ju}
 import java.lang.{Long => JLong}
 import java.util.Locale
-import javax.servlet.http.HttpServletRequest
-
+import jakarta.servlet.http.HttpServletRequest
 import scala.collection.JavaConverters._
 import scala.xml.{Node, NodeBuffer, Unparsed}
 

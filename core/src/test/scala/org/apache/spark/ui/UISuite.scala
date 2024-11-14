@@ -20,8 +20,8 @@ package org.apache.spark.ui
 import java.net.{BindException, ServerSocket}
 import java.net.{URI, URL}
 import java.util.Locale
-import javax.servlet._
-import javax.servlet.http.{HttpServlet, HttpServletRequest, HttpServletResponse}
+import jakarta.servlet._
+import jakarta.servlet.http.{HttpServletRequest, HttpServletRequestWrapper, HttpServletResponse}
 
 import scala.io.Source
 
