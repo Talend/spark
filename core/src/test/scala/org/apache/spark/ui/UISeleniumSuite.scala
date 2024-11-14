@@ -19,13 +19,13 @@ package org.apache.spark.ui
 
 import java.net.URL
 import java.util.Locale
-import jakarta.servlet.http.{HttpServletRequest, HttpServletResponse}
 
 import scala.io.Source
 import scala.xml.Node
 
 import com.gargoylesoftware.css.parser.CSSParseException
 import com.gargoylesoftware.htmlunit.DefaultCssErrorHandler
+import jakarta.servlet.http.{HttpServletRequest, HttpServletResponse}
 import org.glassfish.jersey.internal.util.collection.MultivaluedStringMap
 import org.json4s._
 import org.json4s.jackson.JsonMethods

@@ -19,8 +19,8 @@ package org.apache.spark.status.api.v1.sql
 
 import java.net.URL
 import java.text.SimpleDateFormat
-import jakarta.servlet.http.HttpServletResponse
 
+import jakarta.servlet.http.HttpServletResponse
 import org.json4s.DefaultFormats
 import org.json4s.jackson.JsonMethods
 

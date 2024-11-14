@@ -18,10 +18,10 @@
 package org.apache.spark.deploy.master.ui
 
 import java.util.Date
-import jakarta.servlet.http.HttpServletResponse.SC_OK
 
 import scala.io.Source
 
+import jakarta.servlet.http.HttpServletResponse.SC_OK
 import org.mockito.Mockito.{mock, when}
 
 import org.apache.spark.{SecurityManager, SparkConf, SparkFunSuite}

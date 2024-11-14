@@ -18,11 +18,11 @@
 package org.apache.spark.deploy.history
 
 import java.util.{Date, NoSuchElementException}
-import jakarta.servlet.http.{HttpServletRequest, HttpServletResponse}
 
 import scala.collection.mutable
 
 import com.codahale.metrics.Counter
+import jakarta.servlet.http.{HttpServletRequest, HttpServletResponse}
 import org.eclipse.jetty.servlet.ServletContextHandler
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito._

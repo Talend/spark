@@ -19,6 +19,7 @@ package org.apache.spark.sql.hive.thriftserver.ui
 
 import java.io.File
 import java.util.{Calendar, Locale}
+
 import jakarta.servlet.http.HttpServletRequest
 import org.mockito.Mockito.{mock, when, RETURNS_SMART_NULLS}
 import org.scalatest.BeforeAndAfter

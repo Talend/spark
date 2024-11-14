@@ -18,7 +18,6 @@
 package org.apache.spark.deploy.rest.mesos
 
 import jakarta.servlet.http.HttpServletResponse
-
 import org.scalatestplus.mockito.MockitoSugar
 
 import org.apache.spark.{SparkConf, SparkFunSuite}

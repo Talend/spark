@@ -16,12 +16,11 @@
  */
 package org.apache.spark.deploy.k8s.features
 
-import jakarta.ws.rs.core.UriBuilder
-
 import scala.collection.JavaConverters._
 import scala.collection.mutable
 
 import io.fabric8.kubernetes.api.model._
+import jakarta.ws.rs.core.UriBuilder
 
 import org.apache.spark.SparkException
 import org.apache.spark.deploy.k8s._

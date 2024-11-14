@@ -17,9 +17,9 @@
 
 package org.apache.spark.deploy.mesos.ui
 
-import jakarta.servlet.http.HttpServletRequest
 import scala.xml.Node
 
+import jakarta.servlet.http.HttpServletRequest
 import org.apache.mesos.Protos.TaskStatus
 
 import org.apache.spark.deploy.mesos.{config, MesosDriverDescription}
