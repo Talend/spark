@@ -19,10 +19,11 @@ package org.apache.spark.sql.streaming.ui
 
 import java.net.URLEncoder
 import java.nio.charset.StandardCharsets.UTF_8
-import jakarta.servlet.http.HttpServletRequest
+
 import scala.collection.mutable
 import scala.xml.Node
 
+import jakarta.servlet.http.HttpServletRequest
 import org.apache.commons.text.StringEscapeUtils
 
 import org.apache.spark.internal.Logging

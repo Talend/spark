@@ -23,14 +23,14 @@ import java.net.URLDecoder
 import java.nio.charset.StandardCharsets.UTF_8
 import java.text.SimpleDateFormat
 import java.util.{Date, Locale, TimeZone}
-import jakarta.servlet.http.HttpServletRequest
-import jakarta.ws.rs.core.{MediaType, MultivaluedMap, Response}
 
 import scala.collection.JavaConverters._
 import scala.util.control.NonFatal
 import scala.xml._
 import scala.xml.transform.{RewriteRule, RuleTransformer}
 
+import jakarta.servlet.http.HttpServletRequest
+import jakarta.ws.rs.core.{MediaType, MultivaluedMap, Response}
 import org.apache.commons.text.StringEscapeUtils
 import org.glassfish.jersey.internal.util.collection.MultivaluedStringMap
 

@@ -18,6 +18,7 @@
 package org.apache.spark.ui.jobs
 
 import jakarta.servlet.http.HttpServletRequest
+
 import org.apache.spark.JobExecutionStatus
 import org.apache.spark.internal.config.SCHEDULER_MODE
 import org.apache.spark.scheduler.SchedulingMode
