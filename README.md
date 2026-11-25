@@ -36,16 +36,6 @@ More detailed documentation is available from the project site, at
 
 For general development tips, including info on developing Spark using an IDE, see ["Useful Developer Tools"](https://spark.apache.org/developer-tools.html).
 
-### Talend Java 17 container
-
-Run `bash build_spark_image.sh` to build
-`talend/spark:3.3.1-j17-tsbi-5.8.4`. Its TSBI base
-`5.8.4-20261123084710` supplies Temurin `17.0.21.1+2`, fixing
-CVE-2026-114938 (Java4Shell) without changing the Spark version.
-After publishing the image, update downstream Livy job-executor image references
-to the actual published tag and rebuild the full image chain. Verify
-`java -version` inside the published image before removing temporary mitigations.
-
 ## Interactive Scala Shell
 
 The easiest way to start using Spark is through the Scala shell:
